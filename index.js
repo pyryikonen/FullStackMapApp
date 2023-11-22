@@ -1,5 +1,5 @@
 const express = require("express");
-const router = require("./routes/locationController.js");
+const locationController = require("./backend/routes/locationController.js");
 const app = express();
 const cors = require("cors");
 const mysql = require("mysql");

@@ -1,18 +1,17 @@
+# Use the Node.js Alpine image
+FROM node:20-alpine
 
-# Use the Alpine Linux-based which will have node 20 already installed
-FROM node:14-alpine
-
-# Inform Docker that the container will listen on port 3000
-EXPOSE 8080
-
-# Copy all files from the current directory to the /app directory inside the container
-COPY . /app
-
-# Set the working directory inside the container to /app
+# Set the working directory inside the container
 WORKDIR /app
 
-# Run the npm install command to install Node.js dependencies for the application
+# Copy the entire root directory into the container
+COPY . .
+
+# Install dependencies
 RUN npm install
 
-# Set the default command for the container to start the Node.js application using index.js
+# Expose the port
+EXPOSE 8080
+
+# Command to run the application
 CMD ["node", "index.js"]
