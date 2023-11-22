@@ -1,6 +1,6 @@
 
 # Use the Alpine Linux-based which will have node 20 already installed
-FROM node:20-alpine
+FROM node:14-alpine
 
 # Inform Docker that the container will listen on port 3000
 EXPOSE 8080
