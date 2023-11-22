@@ -16,13 +16,13 @@ const config = {
   database: process.env.DB,
 };
 
-var connection = mysql.createConnection(config);
+var connection = mysql.createConnection(config); // Use `connection` instead of `pool`
 port = 8080;
 let server = undefined;
 
 app.use(express.static("./frontend/dist"));
 app.use(express.json());
-app.use("/api/locations", router);
+app.use("/api/locations", locationController); // Use `locationController` instead of `router`
 
 connection.connect((err) => {
   if (err) {
@@ -54,12 +54,12 @@ const gracefulShutdown = () => {
       } else {
         console.log("Server closed.");
 
-        // Try to close the database connection pool
-        pool.end((dbErr) => {
+        // Try to close the database connection
+        connection.end((dbErr) => {
           if (dbErr) {
-            console.error("Error closing MySQL connection pool:", dbErr);
+            console.error("Error closing MySQL connection:", dbErr);
           } else {
-            console.log("MySQL connection pool closed.");
+            console.log("MySQL connection closed.");
             process.exit(0); // Exit the process after successful shutdown
           }
         });
