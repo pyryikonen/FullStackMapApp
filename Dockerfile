@@ -13,8 +13,8 @@ RUN npm install
 # Copy the entire application to the container
 COPY . .
 
-# Build the application (assumes you have a build script in package.json)
-RUN npm run build
+# Build the application using Vite
+RUN npx vite build
 
 # Use a lightweight Nginx image as the final image
 FROM nginx:alpine
