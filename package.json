@@ -1,21 +1,25 @@
 {
-  "name": "02",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "fullstack-cp",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install-all": "npm install",
+    "start": "npm run start-frontend & npm run start-backend",
+    "start-frontend": "npm run dev --workspace=frontend",
+    "start-backend": "npm start --workspace=backend"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "all": "^0.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mysql": "^2.18.1",
     "mysql2": "^3.6.5",
+    "react": "^18.2.0",
     "yup": "^1.3.2"
+  },
+  "devDependencies": {
+    "vite": "^5.0.2"
   }
 }
