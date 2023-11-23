@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import LocationList from "./LocationList";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import CustomMap from "./CustomMap"; // Import CustomMap
-import styles from "App.module.css";
+import styles from "./App.module.css";
 
 function App() {
   const [locations, setLocations] = useState([]);
