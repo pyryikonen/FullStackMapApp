@@ -8,7 +8,11 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - NODE_ENV=production
+      - USER=tfpyik
+      - PASSWORD=9p607C36
+      - HOST=mydb.tamk.fi
+      - PORT=3306
+      - DB=dbtfpyik1
     depends_on:
       - nginx
   nginx:
