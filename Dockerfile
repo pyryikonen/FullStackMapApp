@@ -1,23 +1,14 @@
-# Use the Node.js Alpine image
-FROM node:20-alpine
+# Use a lightweight Nginx image as the final image
+FROM nginx:alpine
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /usr/share/nginx/html
 
-# Copy only the package.json and package-lock.json to leverage Docker cache
-COPY package*.json ./
+# Copy the built assets from the frontend/dist directory into the container
+COPY frontend/dist .
 
-# Install dependencies
-RUN npm install
+# Expose port 80
+EXPOSE 80
 
-# Copy the entire application to the container
-COPY . .
-
-# Build the application using Vite
-RUN npx vite build
-
-# Expose port 8080
-EXPOSE 8080
-
-# Command to run the application
-CMD ["node", "index.js"]
+# Start Nginx to serve the application
+CMD ["nginx", "-g", "daemon off;"]
