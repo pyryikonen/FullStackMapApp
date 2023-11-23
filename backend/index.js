@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const mysql = require("mysql");
 const dotenv = require("dotenv");
+const rateLimit = require("express-rate-limit");
 
 dotenv.config();
 
@@ -16,10 +17,18 @@ const config = {
   database: process.env.DB,
 };
 
+// Apply rate limiting middleware
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20, // limit each IP to 10 requests per windowMs
+  message: "Too many requests from this IP, please try again later",
+});
+
 var connection = mysql.createConnection(config); // Use `connection` instead of `pool`
 port = 8080;
 let server = undefined;
 
+app.use(limiter);
 app.use(express.static("./frontend/dist"));
 app.use(express.json());
 app.use("/api/locations", locationController); // Use `locationController` instead of `router`
