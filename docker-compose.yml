@@ -1,8 +1,17 @@
 version: "3.8"
+
 services:
-  app: # service name, we are going to use this
-    build: . # Assuming your Dockerfile is in the same directory
+  app:
+    build: .
     ports:
-      - "8080:8080" # Maps port 8080 of the container to port 8080 on the host
-    env_file:
-      - .env # Specifies the .env file to use
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - nginx
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html
+    ports:
+      - "80:80"
