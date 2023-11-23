@@ -1,16 +1,24 @@
-.map-container {
+/* App.module.css */
+.container {
   display: flex;
-}
-
-.location-list {
-  flex: 1;
-  padding: 10px;
-  max-width: 300px;
+  height: 100vh; /* Set the container to take up the full viewport height */
 }
 
 .map {
   flex: 2;
   padding: 10px;
-  height: 400px;
-  max-width: calc(100% - 320px);
+}
+
+.locationList {
+  flex: 1;
+  max-height: 100%;
+  overflow-y: auto; /* Add overflow to handle scroll if needed */
+  padding: 10px;
+}
+
+/* Style for each location box */
+.locationBox {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 5px;
 }

@@ -39,10 +39,7 @@ function App() {
   return (
     <>
       <h1>Locations</h1>
-      <div className={styles.mapContainer}>
-        <div className={styles.locationList}>
-          <LocationList locations={locations} />
-        </div>
+      <div className={styles.container}>
         <div className={styles.map}>
           <button onClick={fetchIt}>Fetch</button>
           {isLoading && <p>Loading...</p>}
@@ -51,23 +48,35 @@ function App() {
             <MapContainer
               center={[51.505, -0.09]}
               zoom={13}
-              className={styles.mapContainer} // Apply the class for the map container
+              style={{ height: "100%", width: "100%" }}
             >
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
               {locations.map((location, index) => (
                 <Marker
                   key={index}
                   position={[location.latitude, location.longitude]}
-                  draggable={true}
+                  draggable={false}
                 >
                   <Popup>
-                    Location: {location.latitude}, {location.longitude}
+                    <p>ID: {location.id}</p>
+                    <p>Latitude: {location.latitude}</p>
+                    <p>Longitude: {location.longitude}</p>
                   </Popup>
                 </Marker>
               ))}
               <CustomMap addLocation={addLocation} />
             </MapContainer>
           )}
+        </div>
+        <div className={styles.locationList}>
+          {locations.map((location, index) => (
+            <div key={index} className={styles.locationBox}>
+              {/* Customize the content of each location box as needed */}
+              <p>
+                Location: {location.latitude}, {location.longitude}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </>
