@@ -1,0 +1,16 @@
+.map-container {
+  display: flex;
+}
+
+.location-list {
+  flex: 1;
+  padding: 10px;
+  max-width: 300px;
+}
+
+.map {
+  flex: 2;
+  padding: 10px;
+  height: 400px;
+  max-width: calc(100% - 320px);
+}
