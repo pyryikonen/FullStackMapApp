@@ -1,6 +1,6 @@
 const mysql = require("mysql");
 const yup = require("yup");
-const pool = require("../../dbConfig"); // Use dbConfig.js
+const pool = require("../dbConfig"); // Use dbConfig.js
 
 const locationSchema = yup.object().shape({
   latitude: yup.number().required(),
