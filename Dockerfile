@@ -1,14 +1,21 @@
-# Use a lightweight Nginx image as the final image
+# Stage 1: Build
+FROM node:20-alpine AS build
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+# Stage 2: Run
 FROM nginx:alpine
 
-# Set the working directory inside the container
 WORKDIR /usr/share/nginx/html
 
-# Copy the built assets from the frontend/dist directory into the container
-COPY frontend/dist .
+COPY --from=build /app/frontend/dist .
 
-# Expose port 80
 EXPOSE 80
 
-# Start Nginx to serve the application
 CMD ["nginx", "-g", "daemon off;"]
