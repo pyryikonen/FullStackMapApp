@@ -1,21 +1,50 @@
-# Stage 1: Build
-FROM node:16-alpine AS build
 
-WORKDIR /app
+## STAGE 1
 
-COPY package*.json ./
+# Use a lightweight Node.js image as a base for building the frontend
+FROM node:20.9.0-alpine as frontend-builder
+
+# Sets and creates the working directory inside the container to /app/frontend
+WORKDIR /app/frontend
+
+# Copy from local OS frontend package.json
+# and package-lock.json to the working directory
+COPY frontend/package*.json ./
+
+# Install dependencies defined in package-lock.json
 RUN npm install
 
-COPY . .
-RUN npm start
+# Copy all frontend source code to the working directory
+# node_modules excluded (.dockerignore)
+COPY frontend .
 
-# Stage 2: Run
-FROM nginx:alpine
+# Run the build script defined in package.json to build the frontend
+# builds app/frontend/dist in the container
+RUN npm run build
 
-WORKDIR /usr/share/nginx/html
+## STAGE 2
 
-COPY --from=build /app/frontend/dist .
+# Start a new build stage with the same lightweight Node.js image
+FROM node:20.9.0-alpine
 
-EXPOSE 80
+# Set the working directory inside the container to /app/backend
+WORKDIR /app/backend
 
-CMD ["nginx", "-g", "daemon off;"]
+# Copy backend package.json and package-lock.json to the working directory
+COPY backend/package*.json ./
+
+# Install dependencies for the backend
+RUN npm install
+
+# Copy all backend source code to the working directory
+COPY backend .
+
+# Copy the built frontend files from the frontend-builder stage
+# to the directory serving frontend files in the backend
+COPY --from=frontend-builder /app/frontend/dist /app/backend/frontend/dist
+
+# Inform Docker that the container listens on the specified network port at runtime
+EXPOSE 8080
+
+# Define the command to run the backend server
+CMD ["npm", "start"]
