@@ -47,14 +47,15 @@ function App() {
           {locations && (
             <MapContainer
               center={[61.49874970332889, 23.77141965304882]}
-              zoom={13}
+              zoom={8}
               style={{ height: "100%", width: "100%" }}
+              doubleClickZoom={false} // Disable double-click zoom
               maxBounds={[
                 // Define the maximum bounds for latitude and longitude
                 [90, 180], // Northeast corner
                 [-90, -180], // Southwest corner
               ]}
-              doubleClickZoom={false} // Disable double-click zoom
+              maxBoundsViscosity={1.0} // Enforce bounds strictly
             >
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
               {locations.map((location, index) => (
