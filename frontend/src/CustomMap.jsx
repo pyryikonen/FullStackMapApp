@@ -16,11 +16,14 @@ const CustomMap = ({ addLocation }) => {
 
       // Post the new location to the API
       try {
-        axios.post(
-          `${import.meta.env.VITE_API_URL}/api/locations`,
-          newLocation
-        );
-        console.log("success");
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/api/locations`, newLocation)
+          .then((response) => {
+            console.log("successs", response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } catch (error) {
         console.error("Error adding location:", error);
       }
