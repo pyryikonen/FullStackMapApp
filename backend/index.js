@@ -10,6 +10,9 @@ dotenv.config();
 
 app.use(cors());
 
+// Set up Express to trust the proxy in our case it would be the Nginx proxy server?
+app.set("trust proxy", 1);
+
 const config = {
   host: process.env.HOST,
   user: process.env.USER,
