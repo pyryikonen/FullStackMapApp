@@ -9,10 +9,13 @@ const CustomMap = ({ addLocation }) => {
     dblclick: (event) => {
       // Handle the double click event on the map
       const { lat, lng } = event.latlng; // Get the latitude and longitude of the clicked point
+      console.log("Click event:", event);
       const newLocation = { latitude: lat, longitude: lng }; // Create a new location object
+      console.log("Latitude:", lat, "Longitude:", lng);
 
       // Add the new location to the state
       addLocation(newLocation);
+      console.log("New Location:", newLocation);
 
       // Post the new location to the API
       try {
