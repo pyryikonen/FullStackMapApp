@@ -49,8 +49,8 @@ function App() {
               center={[51.505, -0.09]}
               zoom={13}
               style={{ height: "100%", width: "100%" }}
-              minZoom={16} // Set minZoom to control the minimum zoom level
-              maxZoom={19} // Set maxZoom to control the maximum zoom level
+              minZoom={0} // Set minZoom to control the minimum zoom level
+              maxZoom={25} // Set maxZoom to control the maximum zoom level
               doubleClickZoom={false} // Disable double-click zoom
             >
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
