@@ -49,8 +49,11 @@ function App() {
               center={[61.49874970332889, 23.77141965304882]}
               zoom={13}
               style={{ height: "100%", width: "100%" }}
-              minZoom={25} // Set minZoom to control the minimum zoom level
-              maxZoom={8} // Set maxZoom to control the maximum zoom level
+              maxBounds={[
+                // Define the maximum bounds for latitude and longitude
+                [90, 180], // Northeast corner
+                [-90, -180], // Southwest corner
+              ]}
               doubleClickZoom={false} // Disable double-click zoom
             >
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
