@@ -46,11 +46,11 @@ function App() {
           {error && <p>{error.message}</p>}
           {locations && (
             <MapContainer
-              center={[51.505, -0.09]}
+              center={[61.49874970332889, 23.77141965304882]}
               zoom={13}
               style={{ height: "100%", width: "100%" }}
-              minZoom={0} // Set minZoom to control the minimum zoom level
-              maxZoom={25} // Set maxZoom to control the maximum zoom level
+              minZoom={25} // Set minZoom to control the minimum zoom level
+              maxZoom={8} // Set maxZoom to control the maximum zoom level
               doubleClickZoom={false} // Disable double-click zoom
             >
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
