@@ -1,16 +1,14 @@
 import React from "react";
 import { MapContainer, useMapEvents } from "react-leaflet";
 import axios from "axios";
-import L from "leaflet";
 
 const CustomMap = ({ addLocation }) => {
-  // Use the useMapEvents hook to access the native Leaflet events
   const map = useMapEvents({
     dblclick: (event) => {
       // Handle the double click event on the map
-      const { lat, lng } = event.latlng; // Get the latitude and longitude of the clicked point
+      const { lat, lng } = event.latlng;
       console.log("Click event:", event);
-      const newLocation = { latitude: lat, longitude: lng }; // Create a new location object
+      const newLocation = { latitude: lat, longitude: lng };
       console.log("Latitude:", lat, "Longitude:", lng);
 
       // Add the new location to the state
@@ -22,10 +20,10 @@ const CustomMap = ({ addLocation }) => {
         axios
           .post(`${import.meta.env.VITE_API_URL}/api/locations`, newLocation)
           .then((response) => {
-            console.log("successs", response.data);
+            console.log("Success", response.data);
           })
           .catch((error) => {
-            console.log(error);
+            console.error("Error adding location:", error);
           });
       } catch (error) {
         console.error("Error adding location:", error);
@@ -33,21 +31,16 @@ const CustomMap = ({ addLocation }) => {
     },
   });
 
-  // Set the maximum bounds to restrict longitude values
-  const maxBounds = L.latLngBounds(
-    L.latLng(-90, -180), // Southwest corner
-    L.latLng(90, 180) // Northeast corner
+  return (
+    <MapContainer
+      center={[51.505, -0.09]}
+      zoom={13}
+      style={{ height: "100%", width: "100%" }}
+      maxZoom={13} // Set maxZoom to restrict zooming out
+    >
+      {/* Other map components */}
+    </MapContainer>
   );
-
-  // Set the maximum bounds on the map
-  map.setMaxBounds(maxBounds);
-
-  // When the map is dragged, pan it back into bounds
-  map.on("drag", () => {
-    map.panInsideBounds(maxBounds, { animate: false });
-  });
-
-  return null; // Return null because we don't need to render anything
 };
 
 export default CustomMap;
