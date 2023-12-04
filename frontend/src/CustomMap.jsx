@@ -1,5 +1,5 @@
 import React from "react";
-import { MapContainer, useMapEvents } from "react-leaflet";
+import { useMapEvents } from "react-leaflet";
 import axios from "axios";
 
 const CustomMap = ({ addLocation }) => {
@@ -31,16 +31,7 @@ const CustomMap = ({ addLocation }) => {
     },
   });
 
-  return (
-    <MapContainer
-      center={[51.505, -0.09]}
-      zoom={13}
-      style={{ height: "100%", width: "100%" }}
-      maxZoom={13} // Set maxZoom to restrict zooming out
-    >
-      {/* Other map components */}
-    </MapContainer>
-  );
+  return null; // Return null because we don't need to render anything
 };
 
 export default CustomMap;
