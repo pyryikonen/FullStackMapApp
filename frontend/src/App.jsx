@@ -48,7 +48,7 @@ function App() {
             <MapContainer
               center={[61.49874970332889, 23.77141965304882]}
               zoom={18}
-              minZoom={0}
+              minZoom={125}
               maxZoom={20} // Adjust the maxZoom value according to your needs
               style={{ height: "100%", width: "100%" }}
               doubleClickZoom={false} // Disable double-click zoom
