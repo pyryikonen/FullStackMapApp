@@ -1,7 +1,7 @@
-// CustomMap.jsx
 import React from "react";
 import { MapContainer, useMapEvents } from "react-leaflet";
 import axios from "axios";
+import L from "leaflet";
 
 const CustomMap = ({ addLocation }) => {
   // Use the useMapEvents hook to access the native Leaflet events
@@ -31,6 +31,20 @@ const CustomMap = ({ addLocation }) => {
         console.error("Error adding location:", error);
       }
     },
+  });
+
+  // Set the maximum bounds to restrict longitude values
+  const maxBounds = L.latLngBounds(
+    L.latLng(-90, -180), // Southwest corner
+    L.latLng(90, 180) // Northeast corner
+  );
+
+  // Set the maximum bounds on the map
+  map.setMaxBounds(maxBounds);
+
+  // When the map is dragged, pan it back into bounds
+  map.on("drag", () => {
+    map.panInsideBounds(maxBounds, { animate: false });
   });
 
   return null; // Return null because we don't need to render anything
